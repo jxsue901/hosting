@@ -1,204 +1,805 @@
-<!DOCTYPE html>
-<html lang="es">
+<!doctype html>
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mientras por competir con tu cabello - Luis de Góngora</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Un ramo para ti</title>
     <style>
         body {
-            font-family: 'Georgia', serif;
-            background-color: #f5e9d4; /* Parchment-like base */
+            height: 100vh;
+            width: 100%;
+            background: #080f1a;
+            overflow: hidden;
             margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            background-image: 
-                url('https://img.icons8.com/ios/50/000000/quill-with-ink.png'),
-                url('https://img.icons8.com/ios/50/000000/scroll.png'),
-                url('https://www.transparenttextures.com/patterns/paper-fibers.png');
-            background-size: 
-                60px, 50px, cover;
-            background-repeat: 
-                repeat, repeat, repeat;
-            opacity: 0.9;
         }
 
         .container {
-            background-color: rgba(255, 245, 230, 0.97);
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            max-width: 800px;
-            text-align: center;
-            position: relative;
-            z-index: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            position: absolute;
+            left: 50%;
+            top: 30%;
+            transform: translate(-50%, -50%);
         }
 
-        /* Side images */
-        .side-image-left, .side-image-right {
+        .glass {
+            height: 800px;
+            width: 600px;
+            background: #122139;
+            border-radius: 300px 300px 0px 0px;
+        }
+
+        .glass:before {
+            content: "";
+            height: 40px;
+            width: 40px;
+            transform-origin: center;
+            border: 25px solid #122139;
+            border-radius: 100%;
+            position: absolute;
+            left: 256px;
+            top: -74px;
+        }
+
+        .glass:after {
+            content: "";
+            position: absolute;
+            height: 15px;
+            width: 600px;
+            background: #a52a2a;
+            top: 100%;
+            left: 0%;
+        }
+
+        .shine {
+            width: 26px;
+            height: 330px;
+            background: white;
+            opacity: 0.2;
+            position: absolute;
+            left: 85%;
+            top: 200px;
+            border-radius: 100px;
+            z-index: 10;
+        }
+
+        .shine:before {
+            content: "";
+            width: 26px;
+            height: 40px;
+            position: absolute;
+            background: white;
+            top: 365px;
+            border-radius: 100px;
+        }
+
+        .petals>div {
+            position: absolute;
+            background: #d52d58;
+            width: 85px;
+            height: 120px;
+            top: 200px;
+            transition: all 0.5s ease-out;
+        }
+
+        .petals>div:nth-child(1) {
+            border-radius: 15px;
+            box-shadow: 0px 0px 60px rgba(245, 148, 184, 1);
+            left: 268px;
+            top: 200px;
+            background: #d52d58;
+            animation: glowing 2.5s ease-in-out infinite;
+        }
+
+        .petals>div:nth-child(2),
+        .petals>div:nth-child(4),
+        .petals>div:nth-child(6) {
+            background: #b81b43;
+            left: 230px;
+            border-radius: 0px 50px 0px 50px;
+            transform-origin: bottom right;
+        }
+
+        .petals>div:nth-child(3),
+        .petals>div:nth-child(5),
+        .petals>div:nth-child(7) {
+            background: #b81b43;
+            left: 300px;
+            border-radius: 50px 0px 50px 0px;
+            transform-origin: bottom left;
+        }
+
+        .petals>div:nth-child(2) {
+            z-index: 5;
+            background: #ab1a3f;
+            top: 218px;
+            height: 130px;
+            box-shadow: 0px 0px 60px rgba(245, 148, 184, .5);
+            animation: bloom2 3s ease-in-out, glowing 2.5s ease-in-out infinite;
+            animation-fill-mode: forwards;
+        }
+
+        .petals>div:nth-child(3) {
+            z-index: 4;
+            background: #ab1a3f;
+            top: 218px;
+            height: 130px;
+            box-shadow: 0px 0px 60px rgba(245, 148, 184, .5);
+            animation: bloom3 3s ease-in-out, glowing 2.5s ease-in-out infinite;
+            animation-fill-mode: forwards;
+        }
+
+        .petals>div:nth-child(4) {
+            z-index: 3;
+            background: #b81b43;
+            top: 213px;
+            height: 135px;
+            box-shadow: 0px 0px 60px rgba(245, 148, 184, .5);
+            animation: bloom4 3s ease-in-out, glowing 2.5s ease-in-out infinite;
+            animation-fill-mode: forwards;
+        }
+
+        .petals>div:nth-child(5) {
+            z-index: 2;
+            background: #b81b43;
+            top: 213px;
+            height: 135px;
+            box-shadow: 0px 0px 60px rgba(245, 148, 184, .5);
+            animation: bloom5 3s ease-in-out, glowing 2.5s ease-in-out infinite;
+            animation-fill-mode: forwards;
+        }
+
+        .petals>div:nth-child(6) {
+            z-index: 1;
+            background: #c9204b;
+            top: 200px;
+            height: 130px;
+            box-shadow: 0px 0px 60px rgba(245, 148, 184, .3);
+            animation: bloom6 3s ease-in-out, glowing 2.5s ease-in-out infinite;
+            animation-fill-mode: forwards;
+        }
+
+        .petals>div:nth-child(7) {
+            z-index: 0;
+            background: #c9204b;
+            top: 200px;
+            height: 130px;
+            box-shadow: 0px 0px 60px rgba(245, 148, 184, .3);
+            animation: bloom7 3s ease-in-out, glowing 2.5s ease-in-out infinite;
+            animation-fill-mode: forwards;
+        }
+
+        .fallingPetals>div {
+            position: absolute;
+            background: #d52d58;
+            width: 85px;
+            height: 120px;
+            top: 200px;
+            border-radius: 0px 50px 0px 50px;
+            box-shadow: 0px 0px 60px rgba(245, 148, 184, .5);
+            transition: all 0.5s ease-out;
+        }
+
+        .fallingPetals>div:nth-child(1) {
+            left: 250px;
+            animation: petalFall 6s 0s ease-in-out infinite, glowing 2.5s ease-in-out infinite;
+        }
+
+        .fallingPetals>div:nth-child(2) {
+            left: 300px;
+            animation: petalFall 6s 1s ease-in-out infinite, glowing 2.5s ease-in-out infinite;
+        }
+
+        .fallingPetals>div:nth-child(3) {
+            left: 270px;
+            animation: petalFall 6s 2s ease-in-out infinite, glowing 2.5s ease-in-out infinite;
+        }
+
+        .fallingPetals>div:nth-child(4) {
+            left: 280px;
+            animation: petalFall 6s 3s ease-in-out infinite, glowing 2.5s ease-in-out infinite;
+        }
+
+        .deadPetals>div {
+            position: absolute;
+            background: #d52d58;
+            width: 20px;
+            height: 15px;
+            top: 200px;
+            border-radius: 0px 30px 0px 30px;
+            box-shadow: 0px 0px 30px rgba(245, 148, 184, .5);
+            transition: all 0.5s ease-out;
+        }
+
+        .deadPetals>div:nth-child(1) {
+            left: 260px;
+            transform: rotate(-30deg);
+            animation: falling 5s 0s ease-in-out infinite;
+        }
+
+        .deadPetals>div:nth-child(2) {
+            left: 310px;
+            transform: rotate(-30deg);
+            animation: falling 5s 1s ease-in-out infinite;
+        }
+
+        .deadPetals>div:nth-child(3) {
+            left: 280px;
+            transform: rotate(-30deg);
+            animation: falling 5s 2s ease-in-out infinite;
+        }
+
+        .deadPetals>div:nth-child(4) {
+            left: 290px;
+            transform: rotate(-30deg);
+            animation: falling 5s 3s ease-in-out infinite;
+        }
+
+        .leaves>div:nth-last-child(1) {
+            position: absolute;
+            width: 55px;
+            height: 30px;
+            background: #338f37;
+            top: 334px;
+            left: 278px;
+            border-radius: 100px;
+        }
+
+        .leaves>div:nth-child(1) {
+            position: absolute;
+            width: 15px;
+            height: 390px;
+            background: #054c05;
+            top: 308px;
+            left: 300px;
+            border-radius: 0 0 100px 100px;
+        }
+
+        .leaves>div:nth-child(2) {
+            position: absolute;
+            width: 60px;
+            height: 100px;
+            top: 412px;
+            border-radius: 10px 80px 40px 80px;
+            background: #054c05;
+            transform-origin: bottom;
+            transform: rotate(-30deg);
+            left: 254px;
+            box-shadow: inset 10px 10px #066406;
+        }
+
+        .leaves>div:nth-child(3) {
+            position: absolute;
+            width: 60px;
+            height: 100px;
+            top: 360px;
+            border-radius: 80px 1px 80px 40px;
+            background: #054c05;
+            transform-origin: bottom;
+            transform: rotate(30deg);
+            left: 300px;
+            box-shadow: inset -10px 10px #066406;
+        }
+
+        .thorns>div {
+            position: absolute;
+            width: 0;
+            height: 0;
+            top: 200px;
+        }
+
+        .thorns>div:nth-child(odd) {
+            border-top: 15px solid transparent;
+            border-bottom: 15px solid transparent;
+            border-left: 15px solid #054c05;
+            left: 315px;
+        }
+
+        .thorns>div:nth-child(even) {
+            border-top: 15px solid transparent;
+            border-bottom: 15px solid transparent;
+            border-right: 15px solid #054c05;
+            left: 285px;
+        }
+
+        .thorns>div:nth-child(1) {
+            top: 465px;
+        }
+
+        .thorns>div:nth-child(2) {
+            top: 390px;
+        }
+
+        .thorns>div:nth-child(4) {
+            top: 525px;
+        }
+
+        .envelope {
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            width: 100px;
+            height: 60px;
+            background: #d52d58;
+            border-radius: 5px;
+            animation: bounce 1.5s ease-in-out infinite;
+            z-index: 100;
+            cursor: pointer;
+        }
+
+        .envelope:before {
+            content: "";
+            position: absolute;
+            top: -30px;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-left: 50px solid transparent;
+            border-right: 50px solid transparent;
+            border-bottom: 30px solid #b81b43;
+            transition: transform 0.5s ease;
+            transform-origin: top;
+        }
+
+        .envelope.open:before {
+            transform: rotateX(180deg);
+        }
+
+        .heart {
             position: absolute;
             top: 50%;
-            transform: translateY(-50%);
-            width: 100px;
-            height: 100px;
-            opacity: 0.5;
-            z-index: 0;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            background: #f594b8;
+            transform: translate(-50%, -50%) rotate(45deg);
+            animation: pulse 2s ease-in-out infinite;
         }
 
-        .side-image-left {
-            left: -120px;
-            background: url('https://img.icons8.com/ios/100/000000/quill-with-ink.png') no-repeat;
-            background-size: contain;
+        .heart:before,
+        .heart:after {
+            content: "";
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #f594b8;
+            border-radius: 50%;
         }
 
-        .side-image-right {
-            right: -120px;
-            background: url('https://img.icons8.com/ios/100/000000/scroll.png') no-repeat;
-            background-size: contain;
+        .heart:before {
+            top: -10px;
+            left: 0;
         }
 
-        .title {
-            font-size: 2.5em;
-            color: #5a3e1b;
-            margin-bottom: 20px;
-            padding: 20px;
-            background-image: linear-gradient(to bottom, rgba(255, 215, 0, 0.1), rgba(255, 245, 230, 0.9));
-            border-bottom: 2px solid #8b5e34;
-            position: relative;
-            z-index: 2;
+        .heart:after {
+            left: -10px;
+            top: 0;
         }
 
-        .title::before {
-            content: '';
+        .arrow {
+            position: absolute;
+            top: 70px;
+            left: 70px;
+            width: 48px;
+            height: 20px;
+        }
+
+        .arrow:before {
+            content: "";
+            position: absolute;
+            width: 38px;
+            height: 2px;
+            background: #f594b8;
+            transform: rotate(-45deg);
+            transform-origin: left;
+            animation: arrowWiggle 1s ease-in-out infinite;
+        }
+
+        .arrow:after {
+            content: "";
+            position: absolute;
+            width: 0;
+            height: 0;
+            left: 38px;
+            top: -5px;
+            border-left: 7px solid #f594b8;
+            border-top: 5px solid transparent;
+            border-bottom: 5px solid transparent;
+            transform: rotate(-45deg);
+        }
+
+        .arrow-text {
             position: absolute;
             top: 10px;
-            left: 20px;
-            width: 40px;
-            height: 40px;
-            background: url('https://img.icons8.com/ios/50/000000/feather.png') no-repeat;
-            background-size: contain;
-            opacity: 0.3;
+            left: -20px;
+            color: #f594b8;
+            font-size: 14px;
+            font-family: Arial, sans-serif;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+            transform: rotate(-10deg);
         }
 
-        .title::after {
-            content: '';
-            position: absolute;
+        .envelope.open .arrow,
+        .envelope.open .arrow-text {
+            visibility: hidden;
+        }
+
+        .message {
+            position: fixed;
+            bottom: 80px;
+            left: 10px;
+            width: 280px;
+            max-height: 240px;
+            background: #f594b8;
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            line-height: 1.5;
+            text-align: left;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+            overflow-y: auto;
+            visibility: hidden;
+            z-index: 101;
+        }
+
+        .envelope.open + .message {
+            visibility: visible;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .play-button {
+            position: fixed;
             bottom: 10px;
-            right: 20px;
-            width: 40px;
-            height: 40px;
-            background: url('https://img.icons8.com/ios/50/000000/book.png') no-repeat;
-            background-size: contain;
-            opacity: 0.3;
-        }
-
-        .poem-container {
+            left: 120px;
+            width: 50px;
+            height: 50px;
+            min-width: 50px;
+            min-height: 50px;
+            background: #f594b8;
+            border-radius: 50%;
+            color: white;
+            font-size: 24px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 20px 0;
-            position: relative;
-            z-index: 2;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            z-index: 100;
+            animation: pulse 2s ease-in-out infinite;
         }
 
-        .poem {
-            font-size: 1.2em;
-            line-height: 1.6;
-            color: #3c2f2f;
-            text-align: left;
-            padding: 20px;
-            background-color: rgba(255, 245, 230, 0.9);
-            border: 1px dashed #8b5e34;
-            border-radius: 10px;
-            max-width: 500px;
-            position: relative;
+        .play-button.playing::before {
+            content: "⏸️";
         }
 
-        .poem::before {
-            content: '';
+        .play-button:not(.playing)::before {
+            content: "▶️";
+        }
+
+        @media screen and (max-width: 600px) {
+            .message {
+                width: 90%;
+                font-size: 15px;
+                max-height: 200px;
+            }
+
+            .envelope {
+                width: 90px;
+                height: 54px;
+            }
+
+            .envelope:before {
+                border-left: 45px solid transparent;
+                border-right: 45px solid transparent;
+                border-bottom: 27px solid #b81b43;
+            }
+
+            .heart {
+                width: 18px;
+                height: 18px;
+            }
+
+            .heart:before,
+            .heart:after {
+                width: 18px;
+                height: 18px;
+            }
+
+            .heart:before {
+                top: -9px;
+            }
+
+            .heart:after {
+                left: -9px;
+            }
+
+            .arrow {
+                top: 65px;
+                left: 65px;
+                width: 44px;
+                height: 18px;
+            }
+
+            .arrow:before {
+                width: 36px;
+            }
+
+            .arrow:after {
+                left: 36px;
+                top: -4px;
+                border-left: 6px solid #f594b8;
+                border-top: 4px solid transparent;
+                border-bottom: 4px solid transparent;
+            }
+
+            .arrow-text {
+                font-size: 13px;
+            }
+
+            .play-button {
+                width: 45px;
+                height: 45px;
+                min-width: 45px;
+                min-height: 45px;
+                font-size: 22px;
+                left: 110px;
+            }
+
+            .texto {
+                font-size: 24px;
+            }
+        }
+
+        @keyframes bloom2 {
+            50% {
+                transform: rotate(-90deg);
+                top: 400px;
+                left: 150px;
+            }
+            100% {
+                transform: rotate(-60deg);
+                top: 615px;
+                left: 100px;
+                background: #71122a;
+                box-shadow: 0px 0px 0px rgba(245, 148, 184, 0);
+            }
+        }
+
+        @keyframes bloom3 {
+            100% {
+                transform: rotate(50deg);
+            }
+        }
+
+        @keyframes bloom4 {
+            100% {
+                transform: rotate(-25deg);
+            }
+        }
+
+        @keyframes bloom5 {
+            100% {
+                transform: rotate(25deg);
+            }
+        }
+
+        @keyframes bloom6 {
+            100% {
+                transform: rotate(-10deg);
+            }
+        }
+
+        @keyframes bloom7 {
+            100% {
+                transform: rotate(10deg);
+            }
+        }
+
+        @keyframes petalFall {
+            0% {
+                top: 200px;
+                opacity: 1;
+                transform: rotate(0deg);
+            }
+            50% {
+                top: 600px;
+                opacity: 0.7;
+                transform: rotate(-45deg);
+                background: #9d193b;
+                box-shadow: 0px 0px 20px rgba(245, 148, 184, .3);
+            }
+            100% {
+                top: 750px;
+                opacity: 0;
+                transform: rotate(-90deg);
+            }
+        }
+
+        @keyframes glowing {
+            50% {
+                background: #d7365f;
+                box-shadow: 0px 0px 60px rgba(245, 148, 184, 1);
+            }
+        }
+
+        @keyframes falling {
+            0% {
+                top: 200px;
+                opacity: 1;
+                background: #d52d58;
+                box-shadow: 0px 0px 30px rgba(245, 148, 184, .5);
+            }
+            50% {
+                top: 600px;
+                background: #9d193b;
+                box-shadow: 0px 0px 10px rgba(245, 148, 184, .2);
+                transform: rotate(-60deg);
+            }
+            100% {
+                top: 750px;
+                opacity: 0;
+                transform: rotate(-90deg);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-8px);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        @keyframes arrowWiggle {
+            0%, 100% {
+                transform: rotate(-45deg) translateX(0);
+            }
+            50% {
+                transform: rotate(-45deg) translateX(4px);
+            }
+        }
+
+        .texto {
             position: absolute;
-            top: -20px;
-            left: -20px;
-            width: 40px;
-            height: 40px;
-            background: url('https://img.icons8.com/ios/50/000000/ink-bottle.png') no-repeat;
-            background-size: contain;
-            opacity: 0.3;
-        }
-
-        .poem::after {
-            content: '';
-            position: absolute;
-            bottom: -20px;
-            right: -20px;
-            width: 40px;
-            height: 40px;
-            background: url('https://img.icons8.com/ios/50/000000/rose.png') no-repeat;
-            background-size: contain;
-            opacity: 0.3;
-        }
-
-        .author-image {
-            width: 250px; /* Larger but not overly big */
-            height: auto;
-            margin-left: 20px;
-            border: 2px solid #8b5e34;
-            border-radius: 10px;
-            opacity: 0.8;
-            z-index: 2;
-        }
-
-        .description {
-            font-style: italic;
-            color: #6b4e31;
-            margin-top: 20px;
-            z-index: 2;
-        }
-
-        footer {
-            margin-top: 30px;
-            font-size: 0.9em;
-            color: #8b5e34;
-            z-index: 2;
+            top: 70%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 30px;
+            text-align: center;
+            font-family: Arial, sans-serif;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="side-image-left"></div>
-        <div class="side-image-right"></div>
-        <h1 class="title">Mientras por competir con tu cabello</h1>
-        <div class="poem-container">
-            <div class="poem">
-                Mientras por competir con tu cabello,<br>
-                oro bruñido, el Sol relumbra en vano;<br>
-                mientras con menosprecio en medio el llano<br>
-                mira tu blanca frente el lilio bello;<br>
-                <br>
-                mientras a cada labio, por cogello,<br>
-                siguen más ojos que al clavel temprano;<br>
-                y mientras triunfa con desdén lozano<br>
-                del luciente cristal tu gentil cuello:<br>
-                <br>
-                goza cuello, cabello, labio y frente,<br>
-                antes que lo que fue en tu edad dorada<br>
-                oro, lilio, clavel, cristal luciente,<br>
-                <br>
-                no sólo en plata o viola troncada<br>
-                se vuelva, mas tú y ello juntamente<br>
-                en tierra, en humo, en polvo, en sombra, en nada.
-            </div>
-            <img src="https://static.wikia.nocookie.net/literatura/images/d/d0/Luis_de_G%C3%B3ngora.jpg/revision/latest?cb=20231106021140&path-prefix=es" alt="Luis de Góngora" class="author-image">
+        <div class="glass">
+            <div class="shine"></div>
         </div>
-        <p class="description">
-            Presentamos este hermoso poema de Luis de Góngora, en una presentación que busca capturar la esencia de su belleza y la fugacidad del tiempo. Acompáñenos en este viaje a través de la poesía barroca, donde la ornamentación y el simbolismo se entrelazan para crear una experiencia estética única.
-        </p>
-        <footer>El Legado de Góngora</footer>
+        <div class="thorns">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <div class="leaves">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <div class="petals">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <div class="fallingPetals">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <div class="deadPetals">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
     </div>
+    <div class="envelope" id="envelope">
+        <div class="heart"></div>
+        <div class="arrow">
+            <span class="arrow-text">Abre aquí</span>
+        </div>
+    </div>
+    <div class="message">
+        Hola mi negrita, pues feliz cumpleaños mi niña, que siga cumpliendo muchos años más de vida y que Dios me la bendiga siempre mi corazón. Estoy haciendo todo esto un 14-10-25 antes de su cumpleaños y porque le voy a dar un regalo por su cumpleaños sin que usted lo sepa. Me hubiera encantado estar ahí con usted, pero lástima que no se dieron las cosas. Sepa que la voy a estar esperando siempre por si un día decide volver, siempre la estaré esperando mi negrita. Te amo muchote y la extraño mucho y la pienso mucho. Que esté en paz mi niña, te amo.
+    </div>
+    <div>
+        <h4 class="texto">Mi amor por ti durará hasta que caiga el último pétalo ❤️</h4>
+    </div>
+    <audio id="audioPlayer" autoplay loop>
+        <source src="https://s21.aconvert.com/convert/p3r68-cdx67/xggk4-u2lvd.mp3" type="audio/mpeg">
+        Tu navegador no soporta el elemento de audio.
+    </audio>
+    <div class="play-button" id="playButton"></div>
+    <script>
+        // JavaScript para el sobre
+        const envelope = document.getElementById('envelope');
+        envelope.addEventListener('click', function() {
+            this.classList.toggle('open');
+        });
+
+        // JavaScript para controlar el audio
+        const audio = document.getElementById('audioPlayer');
+        const playButton = document.getElementById('playButton');
+        let isPlaying = false;
+
+        // Intentar reproducir automáticamente
+        const playPromise = audio.play();
+        if (playPromise !== undefined) {
+            playPromise.then(() => {
+                playButton.classList.add('playing');
+                isPlaying = true;
+            }).catch((error) => {
+                console.error('Error al reproducir el audio automáticamente:', error);
+                playButton.classList.remove('playing');
+            });
+        }
+
+        // Controlar play/pausa con el botón
+        playButton.addEventListener('click', () => {
+            if (isPlaying) {
+                audio.pause();
+                playButton.classList.remove('playing');
+                isPlaying = false;
+            } else {
+                audio.play().then(() => {
+                    playButton.classList.add('playing');
+                    isPlaying = true;
+                }).catch((error) => {
+                    console.error('Error al reproducir el audio:', error);
+                    alert('No se pudo reproducir la canción. Verifica tu conexión o el archivo.');
+                });
+            }
+        });
+
+        // Manejar errores de carga del audio
+        audio.addEventListener('error', () => {
+            console.error('Error al cargar el archivo de audio');
+            alert('No se pudo cargar la canción. Verifica el enlace del archivo.');
+            playButton.classList.remove('playing');
+            isPlaying = false;
+        });
+
+        // Actualizar el estado del botón cuando el audio se pause o reproduzca
+        audio.addEventListener('play', () => {
+            playButton.classList.add('playing');
+            isPlaying = true;
+        });
+        audio.addEventListener('pause', () => {
+            playButton.classList.remove('playing');
+            isPlaying = false;
+        });
+    </script>
 </body>
 </html>
